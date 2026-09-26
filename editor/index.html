@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Coconut.dev Editor 🥥</title>
+<body>
+<button id="makeZip">Download</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+document.getElementById("makeZip").onclick = async () => {
+  const zip = new JSZip();
+
+  // Add simple files
+  zip.file("hello.txt", "Hello Michael!");
+  zip.file("metadata.md", "Blank project, 0.3 MB");
+
+  // Add folder + files inside it
+  const assets = zip.folder("assets");
+  assets.file("README.txt", "Blank project");
+
+  // Build ZIP
+  const blob = await zip.generateAsync({ type: "blob" });
+
+  // Download ZIP
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Project.coconut";
+  a.click();
+};
+</script>
+</body>
+</html>
