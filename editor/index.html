@@ -25,6 +25,8 @@ document.getElementById("makeZip").onclick = async () => {
   // Build ZIP
   const blob = await zip.generateAsync({ type: "blob" });
 
+const name = document.getElementById("projectName").value || "Project";
+
   // Download ZIP
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
